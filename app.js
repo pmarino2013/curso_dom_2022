@@ -16,29 +16,63 @@ contenedor.append(subtitulo, imagen);
 
 const autor = {
   nombre: "Steve Gates",
+  usuario: "",
+  correo: "stevewinner@outlook.com",
   descriptcion:
     "Fanático de la tecnología y profesor de las artes de programación con javascript",
   imagen:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsSVzcOZEqLQk9Ma142okaHnitwOAvlaCgTw&usqp=CAU",
 };
 
-let columnaTarjeta = document.createElement("div");
-columnaTarjeta.className = "col";
+const crearTarjeta = () => {
+  document.querySelector("#contenedor_tarjeta").innerHTML = "";
 
-let tarjetaAutor = `<div class="card" style="width: 18rem">
-<img
-  src="${autor.imagen}"
-  class="card-img-top pt-2"
-  alt="${autor.nombre}"
-/>
-<div class="card-body">
-  <h5 class="card-title">${autor.nombre}</h5>
-  <p class="card-text">
-    ${autor.descriptcion}
-  </p>
-  <a href="#" class="btn btn-primary">Ver perfil</a>
-</div>
-</div>`;
+  let columnaTarjeta = document.createElement("div");
+  columnaTarjeta.className = "col";
 
-columnaTarjeta.innerHTML = tarjetaAutor;
-document.querySelector("#contenedor_tarjeta").append(columnaTarjeta);
+  let tarjetaAutor = `<div class="card" style="width: 18rem">
+  <img
+    src="${autor.imagen}"
+    class="card-img-top pt-2"
+    alt="${autor.nombre}"
+  />
+  <div class="card-body">
+    <h5 class="card-title">${autor.nombre}</h5>
+    <p class="card-text">
+      ${autor.descriptcion}
+    </p>
+    <p class="text-muted">
+  ${autor.correo}
+    </p>
+    <button class="btn btn-primary" onclick="eventoClick(event)">Ver perfil</button>
+  </div>
+  </div>`;
+
+  columnaTarjeta.innerHTML = tarjetaAutor;
+  document.querySelector("#contenedor_tarjeta").append(columnaTarjeta);
+};
+
+const modificarAutor = (event) => {
+  console.log(event);
+  event.preventDefault();
+
+  autor.nombre = document.querySelector("#nombre").value;
+  autor.usuario = document.querySelector("#usuario").value;
+  autor.correo = document.querySelector("#email").value;
+
+  crearTarjeta();
+  limpiarFormulario();
+};
+
+// const eventoClick = (event) => {
+//   console.log(event);
+// };
+const limpiarFormulario = () => {
+  document.getElementById("formulario").reset();
+};
+
+document
+  .getElementById("formulario")
+  .addEventListener("submit", modificarAutor);
+
+crearTarjeta();
